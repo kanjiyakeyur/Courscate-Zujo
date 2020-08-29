@@ -1,4 +1,5 @@
 import 'package:courscate/screens/myProfile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './homepage.dart';
 
@@ -39,6 +40,14 @@ class _TabScreenState extends State<TabScreen> {
               letterSpacing: 2),
         ),
         centerTitle: true,
+        actions: [
+          if (_selectedPageIndex == 1)
+            IconButton(
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                })
+        ],
       ),
 
       //drawer : MainDrawer(),

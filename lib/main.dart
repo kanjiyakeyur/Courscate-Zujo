@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 //screen
 import './screens/TabScreen.dart';
 import './screens/loginScreen.dart';
-
+import './screens/newStatusScreen.dart';
 //providers
 import './providers/user.dart';
 
@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
             },
           ),
         ),
+        routes: {NewStatus.routename: (ctx) => NewStatus()},
       ),
     );
   }
