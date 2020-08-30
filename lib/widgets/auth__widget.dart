@@ -29,6 +29,7 @@ class _AuthWidgetState extends State<AuthWidget> {
   void _trySubmit() {
     final isvalid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
+
     if (_pickedImage == null && !_isLogin) {
       Scaffold.of(context)
           .showSnackBar(SnackBar(content: Text('Please Select image  !!!')));

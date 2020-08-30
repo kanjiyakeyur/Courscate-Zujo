@@ -11,13 +11,59 @@ class ImagePicker extends StatefulWidget {
 
 class _ImagePickerState extends State<ImagePicker> {
   File _pickedImage;
-  void _imagepicker() async {
-    final File _pickedImageD = await im.ImagePicker.pickImage(
-        source: im.ImageSource.camera, imageQuality: 50, maxWidth: 150);
-    setState(() {
-      _pickedImage = _pickedImageD;
+
+  void _openGallery(BuildContext context) async {
+    var picture = await im.ImagePicker.pickImage(
+        source: im.ImageSource.gallery,
+        imageQuality: 70,
+        maxWidth: 400,
+        maxHeight: 400);
+    this.setState(() {
+      _pickedImage = picture;
     });
+    Navigator.of(context).pop();
     widget.imgPickerFn(_pickedImage);
+  }
+
+  void _openCamera(BuildContext context) async {
+    var picture = await im.ImagePicker.pickImage(
+        source: im.ImageSource.camera,
+        imageQuality: 70,
+        maxWidth: 400,
+        maxHeight: 400);
+    this.setState(() {
+      _pickedImage = picture;
+    });
+    Navigator.of(context).pop();
+    widget.imgPickerFn(_pickedImage);
+  }
+
+  Future<void> _showSelectionDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text("From where do you want to take the photo?"),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    GestureDetector(
+                      child: Text("Gallery"),
+                      onTap: () {
+                        _openGallery(context);
+                      },
+                    ),
+                    Padding(padding: EdgeInsets.all(8.0)),
+                    GestureDetector(
+                      child: Text("Camera"),
+                      onTap: () {
+                        _openCamera(context);
+                      },
+                    )
+                  ],
+                ),
+              ));
+        });
   }
 
   @override
@@ -39,7 +85,7 @@ class _ImagePickerState extends State<ImagePicker> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FlatButton(
-              onPressed: _imagepicker,
+              onPressed: () => _showSelectionDialog(context),
               child: Row(
                 children: <Widget>[
                   Icon(Icons.image),

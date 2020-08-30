@@ -14,7 +14,7 @@ class _TabScreenState extends State<TabScreen> {
   @override
   initState() {
     _pages = [
-      {'page': HomeScreen(), 'title': 'Explorer'},
+      {'page': HomeScreen(), 'title': 'Explore'},
       {'page': MyProfile(), 'title': 'My Profile'}
     ];
     super.initState();

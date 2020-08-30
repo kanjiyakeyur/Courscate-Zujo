@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class NewFormStatus extends StatefulWidget {
-  final bool _isloading;
+  final bool isloading;
   final Function(String title, String dsecription, File image) submitStatus;
-  NewFormStatus(this.submitStatus, this._isloading);
+  NewFormStatus(this.submitStatus, this.isloading);
   @override
   _NewFormStatusState createState() => _NewFormStatusState();
 }
@@ -15,14 +15,14 @@ class _NewFormStatusState extends State<NewFormStatus> {
   String _title = '';
   String _description = '';
   File _image;
+  final _descriptionFocuse = FocusNode();
 
   void _imagePicker(File pickedImage) {
     _image = pickedImage;
   }
 
-  void _trySubmit() {
+  void _trySubmit() async {
     final isvalid = _formKey.currentState.validate();
-    FocusScope.of(context).unfocus();
     if (_image == null) {
       Scaffold.of(context)
           .showSnackBar(SnackBar(content: Text('Please Select image  !!!')));
@@ -36,67 +36,86 @@ class _NewFormStatusState extends State<NewFormStatus> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            ImagePicker(_imagePicker),
-            SizedBox(height: 15),
-            TextFormField(
-              key: ValueKey('title'),
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Title'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter title';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _title = value;
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              key: ValueKey('description'),
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(labelText: 'Description'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter description';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _description = value;
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton.icon(
-              onPressed: _trySubmit,
-              icon: Icon(
-                Icons.near_me,
-                color: Colors.black,
+    return widget.isloading
+        ? Center(
+            child: CircularProgressIndicator(
+            strokeWidth: 1,
+          ))
+        : SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ImagePicker(_imagePicker),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    key: ValueKey('title'),
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(labelText: 'Title'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter title';
+                      }
+                      return null;
+                    },
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).requestFocus(_descriptionFocuse);
+                    },
+                    onSaved: (value) {
+                      _title = value;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    key: ValueKey('description'),
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(labelText: 'Description'),
+                    maxLines: null,
+                    minLines: 2,
+                    focusNode: _descriptionFocuse,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter description';
+                      }
+                      return null;
+                    },
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).unfocus();
+                    },
+                    onSaved: (value) {
+                      _description = value;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  widget.isloading
+                      ? CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )
+                      : RaisedButton.icon(
+                          onPressed: _trySubmit,
+                          icon: Icon(
+                            Icons.near_me,
+                            color: Colors.black,
+                          ),
+                          label: Text(
+                            ' Confirm',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        )
+                ],
               ),
-              label: Text(
-                ' Confirm',
-                style: TextStyle(color: Colors.black),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          );
   }
 }

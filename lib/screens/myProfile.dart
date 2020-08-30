@@ -2,6 +2,7 @@ import 'package:courscate/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/profileScreen/profileDetails.dart';
+import '../widgets/profileScreen/gridview.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -34,6 +35,7 @@ class MyProfile extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          GridV(),
         ],
       ),
     );
