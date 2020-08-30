@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+If any problem facing Please logout account and relunch the app.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
