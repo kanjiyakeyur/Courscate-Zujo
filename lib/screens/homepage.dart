@@ -12,12 +12,14 @@ class HomeScreen extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
-        final data = snapshot.data.documents;
+        final d = snapshot.data.documents;
+        final data = d.reversed.toList();
         if (data.length == 0) {
           return Container();
         }
         return ListView.builder(
             itemCount: data.length,
+            shrinkWrap: true,
             itemBuilder: (ctx, index) {
               return Padding(
                 padding: EdgeInsets.only(bottom: 20),

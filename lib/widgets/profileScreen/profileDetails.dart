@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../screens/newStatusScreen.dart';
 
 class ProfileDetails extends StatelessWidget {
   final String name;
@@ -22,44 +21,25 @@ class ProfileDetails extends StatelessWidget {
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      email,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                      ),
-                    ),
-                  ],
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-                OutlineButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(NewStatus.routename);
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.yellow,
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  email,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
                   ),
-                  label: Text(
-                    ' New',
-                    style: TextStyle(color: Colors.yellow),
-                  ),
-                  borderSide: BorderSide(color: Colors.yellow),
-                )
+                ),
               ],
             ),
           ),
