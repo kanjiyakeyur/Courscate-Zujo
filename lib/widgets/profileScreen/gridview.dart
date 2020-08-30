@@ -19,6 +19,9 @@ class GridV extends StatelessWidget {
           return CircularProgressIndicator();
         }
         final data = snapshot.data.documents;
+        if (data.length == 0) {
+          return Container();
+        }
         return GridView.builder(
           itemCount: data.length,
           shrinkWrap: true,

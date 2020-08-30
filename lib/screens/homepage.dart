@@ -13,6 +13,9 @@ class HomeScreen extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         final data = snapshot.data.documents;
+        if (data.length == 0) {
+          return Container();
+        }
         return ListView.builder(
             itemCount: data.length,
             reverse: true,
