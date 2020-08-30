@@ -49,7 +49,7 @@ class _NewFormStatusState extends State<NewFormStatus> {
                   SizedBox(
                     height: 20,
                   ),
-                  ImagePicker(_imagePicker),
+                  ImagePicker(_imagePicker, false),
                   SizedBox(height: 15),
                   TextFormField(
                     key: ValueKey('title'),

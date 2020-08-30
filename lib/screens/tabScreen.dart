@@ -1,6 +1,8 @@
+import 'package:courscate/providers/user.dart';
 import 'package:courscate/screens/myProfile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './homepage.dart';
 
 class TabScreen extends StatefulWidget {
@@ -29,6 +31,7 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -44,7 +47,8 @@ class _TabScreenState extends State<TabScreen> {
           if (_selectedPageIndex == 1)
             IconButton(
                 icon: Icon(Icons.exit_to_app),
-                onPressed: () {
+                onPressed: () async {
+                  user.logout();
                   FirebaseAuth.instance.signOut();
                 })
         ],

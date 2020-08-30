@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart' as im;
 
 class ImagePicker extends StatefulWidget {
-  ImagePicker(this.imgPickerFn);
+  ImagePicker(this.imgPickerFn, this.newuser);
+  final bool newuser;
   final void Function(File pickedImage) imgPickerFn;
   @override
   _ImagePickerState createState() => _ImagePickerState();
@@ -72,14 +73,19 @@ class _ImagePickerState extends State<ImagePicker> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        CircleAvatar(
-          radius: 40,
-          backgroundImage: _pickedImage != null
-              ? FileImage(_pickedImage)
-              : AssetImage(
-                  'assets/images/user.png',
-                ),
-        ),
+        if (widget.newuser)
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: _pickedImage != null
+                ? FileImage(_pickedImage)
+                : AssetImage(
+                    'assets/images/user.png',
+                  ),
+          ),
+        if (!widget.newuser && _pickedImage != null)
+          Container(
+            child: Image.file(_pickedImage),
+          ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

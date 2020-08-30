@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
         }
         return ListView.builder(
             itemCount: data.length,
-            reverse: true,
             itemBuilder: (ctx, index) {
               return Padding(
                 padding: EdgeInsets.only(bottom: 20),

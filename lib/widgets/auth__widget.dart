@@ -67,7 +67,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    if (!_isLogin) ImagePicker(_imagePicker),
+                    if (!_isLogin) ImagePicker(_imagePicker, true),
                     TextFormField(
                       key: ValueKey('email'),
                       keyboardType: TextInputType.emailAddress,

@@ -29,6 +29,13 @@ class User with ChangeNotifier {
     return _image;
   }
 
+  void logout() async {
+    fetched = false;
+    _uid = '';
+    _email = '';
+    _imgUrl = '';
+  }
+
   Future<void> loginUserSetup(String uid) async {
     await fatchUser(uid);
   }
