@@ -10,8 +10,8 @@ class OneCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          height: 50,
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+          height: 60,
           color: Colors.grey.shade700,
           child: Row(
             children: [
@@ -67,6 +67,7 @@ class OneCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w300,
+                  color: Colors.white
                 ),
               ),
             ],
